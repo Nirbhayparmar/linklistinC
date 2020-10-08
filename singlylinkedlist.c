@@ -11,10 +11,13 @@ void traverse_list();
 node* insert_end(void);
 node* creat_node(void);
 void insert_after(int);
+void insert_at(int);
 node* insert_begin(void);
 node* delete_end(void);
 node* delete_begin(void);
 void delete_after(int);
+//void delete_at(int);
+int countnodes(void);
 node *head;
 
 ////////////////----main----////////////////////////
@@ -29,10 +32,13 @@ void main(){
   printf("press 1--- to insert node at beginning\n");
   printf("press 2--- to insert node at end\n");
   printf("press 3--- to insert node after a given node\n");
-  printf("press 4--- to delete node at beginning\n");
-  printf("press 5--- to delete node at end\n");
-  printf("press 6--- to delete node after a given node\n");
-  printf("press 7--- to exit\n");
+  printf("press 4--- to insert node at a given position\n");
+  printf("press 5--- to delete node at beginning\n");
+  printf("press 6--- to delete node at end\n");
+  printf("press 7--- to delete node after a given node\n");
+  //printf("press 8--- to delete node at a given position");
+  printf("press 9--- to get the total no of nodes\n");
+  printf("press 10--- to exit\n");
   printf("____________________________________________________________________\n");
   printf("enter your choice-\n");
   scanf("%d",&c);
@@ -54,29 +60,43 @@ void main(){
                         traverse_list();
         break;
         case 4:
-                        delete_begin();
+                        printf("enter the position\n");
+                        scanf("%d",&key);
+                        insert_at(key);
                         traverse_list();
         break;
         case 5:
+                        delete_begin();
+                        traverse_list();
+
+        break;
+       case 6:
                         delete_end();
                         traverse_list();
         break;
-       case 6:
+        case 7:
                         printf("enter the key\n");
-                       scanf("%d",&key);
+                        scanf("%d",&key);
                         delete_after(key);
                         traverse_list();
-        case 7:
-                        break;
+        break;
+        case 8:
+                        printf("enter the position\n");
+                        scanf("%d",&key);
+    //                    delete_at(key);
+                        traverse_list();
+        break;
+        case 9:
+                       printf("this linked list has %d nodes.\n", countnodes());
+        break;
          default: break;
   }
-}while(c!=7);
+}while(c!=10);
     printf("\nThank you for using the program\npress enter to exit");
 
 getch();
 
 }
-
 /////////////////////////----create node function----//////////////////////////////////////////////
 
   node* creat_node(void){
@@ -165,6 +185,30 @@ void insert_after(int key)
 
 }
 
+///////////////////////////----insert_at----//////////////////////
+
+void insert_at(int k)
+{
+    int n=1;
+    node *tp;
+    tp=head;
+    if(k==1)//  at Head position
+    {
+        insert_begin();
+    }
+    else
+    {
+        while(n<(k-1)&&tp->next!=NULL)
+        {
+            ++n;
+            tp=tp->next;
+        }
+        node *new_node =creat_node();
+        new_node->next=tp->next;
+        tp->next=new_node;
+    }
+}
+
 ///////////////////////////----delete_begin----///////////////////////
 
 node* delete_begin()
@@ -235,3 +279,26 @@ void delete_after(int key)
     }
     else printf("link list is empty");
 }
+
+/////////----countnodes()--------///////////////////////
+
+int countnodes(void)
+{
+    int n=1;
+    node *tp;
+    tp=head;
+    if(head==NULL)
+    {
+        return (0);
+    }
+    else
+    {
+        while(tp->next!=NULL)
+        {
+            ++n;
+            tp=tp->next;
+        }
+        return n;
+    }
+}
+
