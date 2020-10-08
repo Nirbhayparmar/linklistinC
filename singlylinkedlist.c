@@ -2,6 +2,7 @@
 #include"conio.h"
 #include"stdlib.h"
 
+
 typedef struct Node
 {
   int info;
@@ -16,7 +17,7 @@ node* insert_begin(void);
 node* delete_end(void);
 node* delete_begin(void);
 void delete_after(int);
-//void delete_at(int);
+void delete_at(int);
 int countnodes(void);
 node *head;
 
@@ -36,7 +37,7 @@ void main(){
   printf("press 5--- to delete node at beginning\n");
   printf("press 6--- to delete node at end\n");
   printf("press 7--- to delete node after a given node\n");
-  //printf("press 8--- to delete node at a given position");
+  printf("press 8--- to delete node at a given position");
   printf("press 9--- to get the total no of nodes\n");
   printf("press 10--- to exit\n");
   printf("____________________________________________________________________\n");
@@ -83,7 +84,7 @@ void main(){
         case 8:
                         printf("enter the position\n");
                         scanf("%d",&key);
-    //                    delete_at(key);
+                        delete_at(key);
                         traverse_list();
         break;
         case 9:
@@ -280,7 +281,31 @@ void delete_after(int key)
     else printf("link list is empty");
 }
 
-/////////----countnodes()--------///////////////////////
+//////////////////////----delete_at----/////////////////////////
+
+void delete_at(int k)
+{
+    int n=0;
+    node *tp, *temp;
+    tp=head;
+    if(k==1) //  if  we want to delete the head
+     {
+        delete_begin();
+     }
+     else
+     {
+         while(n<(k-1)&&tp->next!=NULL)
+         {
+             ++n;
+             temp=tp;
+             tp=tp->next;
+         }
+         temp->next=tp->next;
+         free(tp);
+     }
+}
+
+/////////////////-////---countnodes()--------///////////////////////
 
 int countnodes(void)
 {
